@@ -21,12 +21,31 @@ function showPopup(row) {
       <p><b>Name:</b> ${row["Customer Name"]}</p>
       <p><b>Location:</b> ${row["Location (Pincode)"]}</p>
       <p><b>Courier:</b> <a href="${couriers[row["Courier Name"]] || '#'}" target="_blank">${row["Courier Name"]}</a></p>
-      <p><b>Tracking ID:</b> ${row["Tracking ID"]}</p>
+      <p><b>Tracking ID:</b> 
+  <span id="copyTarget">${trackingId}</span>
+  <button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button></p>
       <p><b>Category:</b> ${row["Category"] || ''}</p>
     </div>
   `;
   document.getElementById('popupContent').innerHTML = content;
   document.getElementById('popupOverlay').style.display = 'flex';
+}
+
+function copyTrackingID() {
+  const trackingText = document.getElementById("copyTarget").innerText;
+  navigator.clipboard.writeText(trackingText)
+    .then(() => showToast("📋 Copied to clipboard!"))
+    .catch(() => showToast("❌ Failed to copy."));
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.innerText = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
 }
 
 function hidePopup() {
