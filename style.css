@@ -301,29 +301,20 @@ th {
     width: 30px;
   }
 }
-.tracking-id-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin: 5px 0;
-  font-size: 16px;
-  white-space: nowrap; /* Prevents wrap on smaller screens */
-  vertical-align: middle;
-}
-
 .copy-btn {
   background: none;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  padding: 0;
-  margin: 0;
-  transition: transform 0.2s ease;
+  padding-left: 4px; /* Just enough for 1 space gap */
   vertical-align: middle;
+  display: inline;
+  line-height: 1;
+  margin: 0;
 }
 
 .copy-btn:hover {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 /* Toast notification styles */
