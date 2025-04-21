@@ -21,7 +21,13 @@ function showPopup(row, trackingId) {
       <p><b>Name:</b> ${row["Customer Name"]}</p>
       <p><b>Location:</b> ${row["Location (Pincode)"]}</p>
       <p><b>Courier:</b> <a href="${couriers[row["Courier Name"]] || '#'}" target="_blank">${row["Courier Name"]}</a></p>
-      <p><b>Tracking ID:</b> <span id="copyTarget">${trackingId}</span> <button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button></p>
+      
+      <div class="tracking-id-container">
+        <b>Tracking ID:</b> 
+        <span id="copyTarget">${trackingId}</span>
+        <button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button>
+      </div>
+
       <p><b>Category:</b> ${row["Category"] || ''}</p>
     </div>
   `;
