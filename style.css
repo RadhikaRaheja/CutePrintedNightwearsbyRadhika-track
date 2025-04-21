@@ -304,18 +304,19 @@ th {
 .copy-btn {
   background: none;
   border: none;
-  padding: 0 0 0 4px; /* only 1 space worth of padding on left */
+  padding: 0;
+  margin: 0;
   font-size: 16px;
   cursor: pointer;
+  display: inline;
   vertical-align: middle;
-  display: inline; /* key to prevent unwanted spacing */
   line-height: 1;
-  margin: 0;
 }
 
 .tracking-id {
   text-transform: uppercase;
   display: inline;
+  margin-right: 2px; /* just enough to create a space between ID and icon */
 }
 
 .copy-btn:hover {
