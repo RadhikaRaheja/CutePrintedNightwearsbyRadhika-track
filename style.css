@@ -304,9 +304,11 @@ th {
 .tracking-id-container {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
   margin: 5px 0;
   font-size: 16px;
+  white-space: nowrap; /* Prevents wrap on smaller screens */
+  vertical-align: middle;
 }
 
 .copy-btn {
