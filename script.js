@@ -24,7 +24,7 @@ function showPopup(row, trackingId) {
       
       <div class="tracking-id-container">
         <b>Tracking ID:</b> 
-        <span id="copyTarget">${trackingId}</span>
+        <span id="copyTarget">${trackingId.toUpperCase()}</span>
         <button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button>
       </div>
 
