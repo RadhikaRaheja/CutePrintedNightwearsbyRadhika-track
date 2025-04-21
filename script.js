@@ -161,7 +161,7 @@ function renderResults() {
       <td>${row["Category"] || ''}</td>
     `;
 
-    tr.onclick = () => showPopup(row);
+    tr.onclick = () => showPopup(row, trackingId);
     table.appendChild(tr);
   });
 
