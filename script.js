@@ -14,14 +14,14 @@ function formatDate(inputDate) {
   return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
 }
 
-function showPopup(row) {
+function showPopup(row, trackingId) {
   const content = `
     <div class="popup-content">
       <p><b>Date:</b> ${formatDate(row.Date)}</p>
       <p><b>Name:</b> ${row["Customer Name"]}</p>
       <p><b>Location:</b> ${row["Location (Pincode)"]}</p>
       <p><b>Courier:</b> <a href="${couriers[row["Courier Name"]] || '#'}" target="_blank">${row["Courier Name"]}</a></p>
-      <p><b>Tracking ID:</b><span id="copyTarget">${trackingId}</span>x<button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button></p>
+      <p><b>Tracking ID:</b> <span id="copyTarget">${trackingId}</span> <button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button></p>
       <p><b>Category:</b> ${row["Category"] || ''}</p>
     </div>
   `;
