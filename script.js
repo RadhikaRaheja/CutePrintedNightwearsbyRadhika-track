@@ -1,3 +1,4 @@
+
 let data = [], filteredData = [], couriers = {}, currentPage = 1, entriesPerPage = 10;
 
 function handleSearchFieldChange() {
@@ -23,7 +24,15 @@ function showPopup(row, trackingId) {
       <p><b>Courier:</b> <a href="${couriers[row["Courier Name"]] || '#'}" target="_blank">${row["Courier Name"]}</a></p>
      <p><b>Tracking ID:</b> <span class="tracking-id" id="copyTarget">${trackingId.toUpperCase()}</span><button class="copy-btn" onclick="copyTrackingID()" title="Copy to clipboard">📝</button></p>
       <p><b>Category:</b> ${row["Category"] || ''}</p>
-    </div>
+     <p><button class="share-btn" onclick="shareReceiptMessage({
+    date: '${formatDate(row.Date)}',
+    name: '${row["Customer Name"]}',
+    pincode: '${row["Location (Pincode)"]}',
+    courier: '${row["Courier Name"]}',
+    trackingId: '${trackingId.toUpperCase()}',
+    category: '${row["Category"] || ""}'
+  })">📤 Share Receipt</button></p>
+
   `;
   document.getElementById('popupContent').innerHTML = content;
   document.getElementById('popupOverlay').style.display = 'flex';
@@ -34,6 +43,66 @@ function copyTrackingID() {
   navigator.clipboard.writeText(trackingText)
     .then(() => showToast("📋 Copied to clipboard!"))
     .catch(() => showToast("❌ Failed to copy."));
+}
+
+function shareReceiptMessage(order) {
+  const trackingLinks = {
+    dtdc: `https://www.dtdc.in/trace.asp`,
+    bluedart: `https://www.bluedart.com/tracking`,
+    fedex: `https://www.fedex.com/fedextrack/`,
+    delhivery: `https://www.delhivery.com/`,
+    indiapost: `https://www.indiapost.gov.in/VAS/Pages/trackconsignment.aspx`,
+    amazon: `https://track.amazon.in/`,
+    firstflight: `https://firstflightme.com/`,
+    shreetirupati: `http://www.shreetirupaticourier.net/index.aspx`,
+    mahavir: `http://shreemahavircourier.com/`,
+    gati: `https://www.gati.com/track-by-docket/`,
+    madhur: `https://www.madhurcouriers.in/(S(5mhmi5rxen0hy3xgxqtis5jr))/CNoteTracking`,
+    maruti: `https://www.shreemaruti.com/track-your-shipment/`,
+    skyking: `https://skyking.co/track`,
+    trackon: `https://www.trackon.in/courier-tracking`,
+    tpc: `https://www.tpcindia.com/`,
+    ecom: `https://www.ecomexpress.in/`,
+    anjani: `http://www.shreeanjanicourier.com/`,
+    gms: `https://www.gmsworldwide.com/`
+  };
+
+  const courierKey = Object.keys(trackingLinks).find(key =>
+    order.courier.toLowerCase().includes(key)
+  );
+  const trackingURL = courierKey ? trackingLinks[courierKey] : 'Tracking link unavailable';
+
+  const receiptMessage = `
+🧾 *Order Receipt*
+
+*Cute Printed Nightwears by Radhika* 🎀
+
+📅 *Date:* ${order.date}
+👤 *Name:* ${order.name}
+📍 *Pincode:* ${order.pincode}
+
+🚚 *Courier:* ${order.courier}
+🔗 *Track:* ${trackingURL}
+
+🔢 *Tracking ID:* ${order.trackingId.toUpperCase()}
+📂 *Category:* ${order.category}
+
+━━━━━━━━━━━━━━━━━━━━━━  
+Thank you for shopping with us! ❤️`;
+
+  const encodedMessage = encodeURIComponent(receiptMessage);
+  const whatsappURL = `https://wa.me/?text=${encodedMessage}`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'Order Receipt',
+      text: receiptMessage
+    }).catch(() => {
+      window.open(whatsappURL, '_blank');
+    });
+  } else {
+    window.open(whatsappURL, '_blank');
+  }
 }
 
 function showToast(message) {
