@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url('https://www.transparenttextures.com/patterns/diamond-upholstery.png'), linear-gradient(135deg, #eacdfc, #f6e8ff);
@@ -347,4 +348,21 @@ th {
   visibility: visible;
   opacity: 1;
   bottom: 50px;
+}
+
+.share-btn {
+  background: #25d366; /* WhatsApp green */
+  color: white;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.share-btn:hover {
+  background: #1ebe5d;
 }
